@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>mt</title>
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta name="robots" content="all" />
+	<meta name="MSSmartTagsPreventParsing" content="true" />
+	<meta http-equiv="imagetoolbar" content="false" />
+	<style>
+		* { padding: 0; margin: 0; }
+  		p { font-weight: bold; font-family: Helvetica; font-size: 16px; line-height: 24px; margin-bottom: 22px; -webkit-font-smoothing: antialiased; color: white }
+		a { color: #669966; text-decoration: none; border-bottom: 1px solid rgba(0,0,0,0.3); }
+		a:hover { color: #669966; border-bottom: 1px solid rgba(153,0,0,1); }
+  		#monogram { width: 0px; padding: 0px 0px 0px 55px; margin: 0 auto 0 0px; float: left}
+  		#about { width: 360px; padding: 0 0 0 270px; margin: 0px px 0 auto !important; }
+  		ul { list-style-type: none; font-family: Helvetica; color: white}
+	</style>
+</head>
+
+<body>
+
+<div id="monogram">
+	<img src="images/monogram.png" />
+</div>
+
+<div id="about">
+	<p>&nbsp;<ul>
+	<li><b>Matthew Tovbin</b></li>
+	<li>versatile software engineer</li>
+	<li>hobbyist photographer</li>
+	<li>desperate PC gamer</li>
+	<li>Internet addict</li>
+	<li>sci-fi fan</li>	
+	<li><a href="https://github.com/tovbinm"><img src="images/github_icon.png" alt="View my code on Github"/></a>&nbsp;<a href="http://il.linkedin.com/in/matthewtovbin"><img src="images/linkedin_icon.png" alt="View my profile on LinkedIn"/></a>&nbsp;<a href="http://www.twitter.com/tovbinm"><img src="images/twitter_icon.png" alt="Follow me on Twitter"/></a>&nbsp;<a href="http://www.flickr.com/photos/matveich"><img src="images/flickr.png" alt="Flickr photo stream"/></a></li>
+	</ul>
+	</p>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
+<script type="text/javascript">	
+	function parseRSS(url, callback) {
+	  $.ajax({
+	    url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=1000&callback=?&q=' + encodeURIComponent(url),
+	    dataType: 'json',
+	    success: function(data) {	       
+	      callback(data.responseData.feed);
+	    }
+	  });
+	}
+	var rssurl = "http://api.flickr.com/services/feeds/photos_public.gne?id=92995374@N05&lang=en-us&format=rss_200";
+	parseRSS(rssurl, function(j){
+		var entries = j.entries;
+		var urls = [];
+		for (var i = 0; i < entries.length; ++i) {
+			var url = entries[i].mediaGroups[0].contents[0].url;
+			urls.push(url);
+		}
+		var shuffled = urls.sort(function() { return .5 - Math.random(); });		
+		$.backstretch(urls, {duration: 5000, fade: 750});
+	});	
+</script>
+
+</body>
+</html>
